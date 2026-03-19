@@ -1,0 +1,115 @@
+{
+	"CONTROLS" : 
+	[
+		{
+			"TYPE" : "bang",
+			"NAME" : "barrel_roll",
+			"DESCRIPTION" : "Trigger a complete barrel roll.",
+			"UI_GROUP" : "ungrouped"
+		},
+		{
+			"DEFAULT" : 4,
+			"DESCRIPTION" : "Forward flight speed in units per second.",
+			"MAX" : 20,
+			"MIN" : 0,
+			"NAME" : "fly_speed",
+			"TYPE" : "slider",
+			"UI_GROUP" : "ungrouped"
+		},
+		{
+			"DEFAULT" : 
+			[
+				0,
+				0
+			],
+			"DESCRIPTION" : "X = roll rate, Y = pitch.",
+			"MAX" : 
+			[
+				0.2,
+				1
+			],
+			"MIN" : 
+			[
+				-0.2,
+				-1
+			],
+			"NAME" : "pitch_roll",
+			"PARAMS" : 0.08,
+			"TYPE" : "xy smooth",
+			"UI_GROUP" : "ungrouped"
+		},
+		{
+			"DEFAULT" : 50,
+			"DESCRIPTION" : "How far the camera can see before fog takes over.",
+			"MAX" : 80,
+			"MIN" : 2,
+			"NAME" : "draw_distance",
+			"TYPE" : "slider",
+			"UI_GROUP" : "ungrouped"
+		},
+		{
+			"DEFAULT" : 0.5,
+			"DESCRIPTION" : "0 = dusk (pink/purple), 0.5 = black, 1 = dawn (teal).",
+			"MAX" : 1,
+			"MIN" : 0,
+			"NAME" : "sky_time",
+			"TYPE" : "knob",
+			"UI_GROUP" : "Sky"
+		},
+		{
+			"DEFAULT" : 1,
+			"DESCRIPTION" : "Toggle synthwave moon on or off.",
+			"MAX" : 1,
+			"MIN" : 0,
+			"NAME" : "show_moon",
+			"TYPE" : "toggle",
+			"UI_GROUP" : "Sky"
+		},
+		{
+			"DEFAULT" : 1,
+			"DESCRIPTION" : "Toggle stars on or off.",
+			"MAX" : 1,
+			"MIN" : 0,
+			"NAME" : "show_stars",
+			"TYPE" : "toggle",
+			"UI_GROUP" : "Sky"
+		},
+		{
+			"DEFAULT" : 0,
+			"DESCRIPTION" : "Select terrain mode.",
+			"LABELS" : 
+			[
+				"Mountains",
+				"Flat",
+				"Canyon",
+				"Trench Run"
+			],
+			"MAX" : 3,
+			"MIN" : 0,
+			"NAME" : "terrain_type",
+			"TYPE" : "dropdown",
+			"UI_GROUP" : "Terrain",
+			"VALUES" : 
+			[
+				0,
+				1,
+				2,
+				3
+			]
+		}
+	],
+	"CREDIT" : "Custom Scene",
+	"DESCRIPTION" : "Neon synthwave terrain flyover. Audio reactive grid lines and glowing peaks.",
+	"GPU" : 0,
+	"HEIGHT" : 1080,
+	"IMAGE_PATH" : "thumbnail.png",
+	"MEDIA" : 
+	[
+		{
+			"FILTER" : "linear",
+			"WRAP" : "repeat"
+		}
+	],
+	"TITLE" : "Flying Synth",
+	"WIDTH" : 1920
+}
