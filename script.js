@@ -3,6 +3,7 @@ var camY = 3.0;
 var camZ = 0.0;
 var camRoll = 0.0;
 var camPitch = 0.0;
+var camYaw = 0.0;
 var rollIdleTime = 0.0;   // how long roll input has been near zero
 var pitchIdleTime = 0.0;  // how long pitch input has been near zero
 var autoRollActive   = false;
@@ -10,6 +11,8 @@ var autoRollProgress = 0.0;  // 0 to 1 through the roll
 var autoRollDir      = 1.0;  // +1 or -1
 var autoRollDuration = 0.85; // seconds for a full rotation
 var prevBang         = 0.0;
+var recenterActive   = false;
+var prevRecenter     = 0.0;
 
 function canyonPath(z) {
     return Math.sin(z * 0.06) * 8.0 + Math.sin(z * 0.11 + 1.2) * 4.0 + Math.sin(z * 0.17 - 0.5) * 2.0;
@@ -87,17 +90,45 @@ function update(dt) {
         pitchIdleTime = 0.0;
     }
 
-    camPitch += pitchRate * dt;
-    camPitch = Math.max(-Math.PI * 0.45, Math.min(Math.PI * 0.45, camPitch));
+    if (!recenterActive) {
+        camPitch += pitchRate * dt;
+        camPitch = Math.max(-Math.PI * 0.45, Math.min(Math.PI * 0.45, camPitch));
+    }
 
     // After 1.5 seconds of no pitch input, pull back to level
-    if (pitchIdleTime > 1.5) {
-        var returnStrength = 0.5;  // radians per second pull strength
+    if (!recenterActive && pitchIdleTime > 1.5) {
+        var returnStrength = 0.5;
         camPitch += (0.0 - camPitch) * returnStrength * dt;
     }
 
-    var yaw      =  0.0;
-    var speed    =  fly_speed;
+    // Recenter — smoothly pulls orientation and x position back to neutral
+    if (recenter > 0.5 && prevRecenter < 0.5) {
+        recenterActive = true;
+    }
+    prevRecenter = recenter;
+
+    if (recenterActive) {
+        var pull      = 3.0 * dt;
+        var targetY   = terrain(camX, camZ) + 4.0;
+        camRoll  += (0.0     - camRoll)  * pull;
+        camPitch += (0.0     - camPitch) * pull;
+        camYaw   += (0.0     - camYaw)   * pull;
+        camX     += (0.0     - camX)     * pull;
+        camY     += (targetY - camY)     * pull;
+        if (Math.abs(camRoll) < 0.01 && Math.abs(camPitch) < 0.01 &&
+            Math.abs(camYaw)  < 0.01 && Math.abs(camX)     < 0.1 &&
+            Math.abs(camY - targetY) < 0.1) {
+            camRoll = 0.0; camPitch = 0.0; camYaw = 0.0;
+            recenterActive = false;
+        }
+    }
+
+    // Banking causes a gradual turn in the direction of roll
+    if (!recenterActive) {
+        camYaw += Math.sin(camRoll) * 0.45 * dt;
+    }
+
+    var speed = fly_speed;
 
     // Track how long roll input has been idle
     if (Math.abs(pitch_roll.x) < 0.05) {
@@ -125,14 +156,13 @@ function update(dt) {
         }
     }
 
-    // Accumulate roll from input (suppressed during auto-roll)
-    if (!autoRollActive) {
+    // Accumulate roll from input (suppressed during auto-roll or recenter)
+    if (!autoRollActive && !recenterActive) {
         camRoll += rollRate * dt;
     }
 
     // After 1.5 seconds of no roll input, start pulling back to level
-    // Find the nearest level angle (multiple of 2*PI)
-    if (!autoRollActive && rollIdleTime > 1.5) {
+    if (!autoRollActive && !recenterActive && rollIdleTime > 1.5) {
         var twoPi = Math.PI * 2.0;
         var nearest = Math.round(camRoll / twoPi) * twoPi;
         var returnStrength = .5;
@@ -141,7 +171,7 @@ function update(dt) {
 
     var cr = Math.cos(camRoll),  sr = Math.sin(camRoll);
     var cp = Math.cos(camPitch), sp = Math.sin(camPitch);
-    var cy = Math.cos(yaw),     sy = Math.sin(yaw);
+    var cy = Math.cos(camYaw),   sy = Math.sin(camYaw);
 
     var fx =  sp * sr;
     var fy =  sp * cr;

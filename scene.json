@@ -8,6 +8,12 @@
 			"UI_GROUP" : "ungrouped"
 		},
 		{
+			"TYPE" : "bang",
+			"NAME" : "recenter",
+			"DESCRIPTION" : "Smoothly return to center, level flight.",
+			"UI_GROUP" : "ungrouped"
+		},
+		{
 			"DEFAULT" : 20,
 			"DESCRIPTION" : "Forward flight speed in units per second.",
 			"MAX" : 30,
@@ -49,11 +55,20 @@
 		},
 		{
 			"DEFAULT" : 0.5,
-			"DESCRIPTION" : "0 = dusk (pink/purple), 0.5 = black, 1 = dawn (teal).",
+			"DESCRIPTION" : "0 = dusk (pink/red), 0.5 = black, 1 = dawn (purple).",
 			"MAX" : 1,
 			"MIN" : 0,
 			"NAME" : "sky_time",
 			"TYPE" : "knob",
+			"UI_GROUP" : "Sky"
+		},
+		{
+			"DEFAULT" : 0.22,
+			"DESCRIPTION" : "Angular size of the moon.",
+			"MAX" : 0.6,
+			"MIN" : 0.05,
+			"NAME" : "moon_scale",
+			"TYPE" : "slider",
 			"UI_GROUP" : "Sky"
 		},
 		{
@@ -103,7 +118,7 @@
 	"GPU" : 0,
 	"HEIGHT" : 1080,
 	"IMAGE_PATH" : "thumbnail.png",
-	"MEDIA" : 
+	"MEDIA" :
 	[
 		{
 			"FILTER" : "linear",

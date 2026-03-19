@@ -4,6 +4,7 @@
 //  Neon synthwave terrain flyover, audio reactive
 // ============================================================
 
+
 mat3 rotX(float a) {
     float c = cos(a), s = sin(a);
     return mat3(1.0,0.0,0.0, 0.0,c,-s, 0.0,s,c);
@@ -133,7 +134,7 @@ vec3 drawMoon(vec3 rd) {
     if (rd.y < 0.0) return vec3(0.0);  // below horizon
 
     vec3  moonDir = normalize(vec3(0.0, 0.06, 1.0));  // center sits just above horizon
-    float moonR   = 0.22;                               // angular radius
+    float moonR   = moon_scale;
 
     float cosA = dot(rd, moonDir);
     if (cosA < cos(moonR)) return vec3(0.0);            // outside disc
@@ -173,8 +174,8 @@ vec3 skyColor(vec3 rd) {
 
     vec3 duskHorizon  = vec3(1.0,  0.35, 0.55);
     vec3 duskZenith   = vec3(0.10, 0.00, 0.25);
-    vec3 dawnHorizon  = vec3(0.0,  0.35, 0.35);
-    vec3 dawnZenith   = vec3(0.00, 0.05, 0.15);
+    vec3 dawnHorizon  = vec3(0.45, 0.0,  0.60);
+    vec3 dawnZenith   = vec3(0.15, 0.0,  0.30);
     vec3 blackHorizon = vec3(0.0,  0.0,  0.0);
     vec3 blackZenith  = vec3(0.0,  0.0,  0.0);
 
@@ -195,7 +196,7 @@ vec3 skyColor(vec3 rd) {
 
     float glowBand = exp(-abs(rd.y) * 8.0);
     vec3 duskGlow  = vec3(1.0,  0.2,  0.5);
-    vec3 dawnGlow  = vec3(0.0,  0.45, 0.40);
+    vec3 dawnGlow  = vec3(0.55, 0.0,  0.70);
     vec3 blackGlow = vec3(0.0,  0.0,  0.0);
     vec3 glow;
     if (t < 0.5) {
