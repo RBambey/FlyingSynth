@@ -1,7 +1,7 @@
 // ============================================================
-//  SYNTHWAVE FLYOVER — v1.0
-//  Flying mechanics from MediaFlyover v1.2
-//  Neon synthwave terrain, audio reactive
+//  FLYING SYNTH — v1.1
+//  Created by RBambey
+//  Neon synthwave terrain flyover, audio reactive
 // ============================================================
 
 mat3 rotX(float a) {

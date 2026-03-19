@@ -8,9 +8,9 @@
 			"UI_GROUP" : "ungrouped"
 		},
 		{
-			"DEFAULT" : 4,
+			"DEFAULT" : 20,
 			"DESCRIPTION" : "Forward flight speed in units per second.",
-			"MAX" : 20,
+			"MAX" : 30,
 			"MIN" : 0,
 			"NAME" : "fly_speed",
 			"TYPE" : "slider",
@@ -39,7 +39,7 @@
 			"UI_GROUP" : "ungrouped"
 		},
 		{
-			"DEFAULT" : 50,
+			"DEFAULT" : 60,
 			"DESCRIPTION" : "How far the camera can see before fog takes over.",
 			"MAX" : 80,
 			"MIN" : 2,
@@ -75,7 +75,7 @@
 			"UI_GROUP" : "Sky"
 		},
 		{
-			"DEFAULT" : 0,
+			"DEFAULT" : 3,
 			"DESCRIPTION" : "Select terrain mode.",
 			"LABELS" : 
 			[
@@ -98,7 +98,7 @@
 			]
 		}
 	],
-	"CREDIT" : "Custom Scene",
+	"CREDIT" : "RBambey",
 	"DESCRIPTION" : "Neon synthwave terrain flyover. Audio reactive grid lines and glowing peaks.",
 	"GPU" : 0,
 	"HEIGHT" : 1080,
